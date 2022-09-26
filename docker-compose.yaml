@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: 'mongo:latest'
+    ports:
+      - 27018:27017
+    networks:
+      clusternetwork:
+        ipv4_address: 172.16.0.14
+    volumes:
+      - ~/apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+networks:
+  clusternetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/24
